@@ -49,7 +49,7 @@ class UserBloc with ChangeNotifier {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => id = value.user!.uid);
     } catch (e) {
-      throw Exception('eeee $e');
+      throw Exception(e);
     }
   }
 

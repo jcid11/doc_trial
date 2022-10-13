@@ -108,47 +108,41 @@ class _ChatScreenState extends State<ChatScreen> {
                       chatId: chatID,
                       isDeleted: isDeleted));
                 }
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: chatList.length,
-                    reverse: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      //TODO to fix yet
-                      if (chatList[index].receiverEmail ==
-                          context
-                              .read<UserBloc>()
-                              .userEmail &&
-                          !chatList[index].isDeleted) {
-                        return receivedMessage(chatList[index].message);
-                      } else if (chatList[index].receiverEmail ==
-                          context
-                              .read<UserBloc>()
-                              .userEmail &&
-                          chatList[index].isDeleted) {
-                        return receivedMessage('Message has been deleted');
-                      } else if (chatList[index].receiverEmail !=
-                          context
-                              .read<UserBloc>()
-                              .userEmail &&
-                          chatList[index].isDeleted) {
-                        return sentMessage('Message has been deleted', () {});
-                      }
-                      return sentMessage(chatList[index].message, () {
-                        showDialog<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ChatDialog(
-                                userEmail: context
-                                    .read<UserBloc>()
-                                    .userEmail,
-                                chatId: chatList[index].chatId,
-                                receiverEmail: email,
-                              );
-                            });
-                      });
-                    },
-                  ),
-                );
+                return Consumer<UserBloc>(builder: (BuildContext context, UserBloc userBloc,Widget? child){
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: chatList.length,
+                      reverse: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        //TODO to fix yet
+                        if (chatList[index].receiverEmail ==
+                            userBloc.userEmail &&
+                            !chatList[index].isDeleted) {
+                          return receivedMessage(chatList[index].message);
+                        } else if (chatList[index].receiverEmail ==
+                            userBloc.userEmail &&
+                            chatList[index].isDeleted) {
+                          return receivedMessage('Message has been deleted');
+                        } else if (chatList[index].receiverEmail !=
+                            userBloc.userEmail &&
+                            chatList[index].isDeleted) {
+                          return sentMessage('Message has been deleted', () {});
+                        }
+                        return sentMessage(chatList[index].message, () {
+                          showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ChatDialog(
+                                  userEmail: userBloc.userEmail,
+                                  chatId: chatList[index].chatId,
+                                  receiverEmail: email,
+                                );
+                              });
+                        });
+                      },
+                    ),
+                  );
+                },);
               },
             ),
             chatRow(context: context, chat: chat, email: email),
