@@ -118,7 +118,8 @@ Widget userList(BuildContext context) {
 }
 
 Widget titleRow(BuildContext context, TextEditingController search) {
-  return Consumer<HomeBloc>(builder: (BuildContext context, HomeBloc homeBloc,Widget? child){
+  return Consumer<HomeBloc>(
+      builder: (BuildContext context, HomeBloc homeBloc, Widget? child) {
     return Row(
       children: [
         Text(
@@ -137,17 +138,13 @@ Widget titleRow(BuildContext context, TextEditingController search) {
               child: Row(
                 children: [
                   Visibility(
-                    visible: homeBloc.searchButtonActivation
-                        ? true
-                        : false,
+                    visible: homeBloc.searchButtonActivation ? true : false,
                     child: const SizedBox(
                       width: 10,
                     ),
                   ),
                   Visibility(
-                    visible: homeBloc.searchButtonActivation
-                        ? true
-                        : false,
+                    visible: homeBloc.searchButtonActivation ? true : false,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: SizedBox(
@@ -169,19 +166,19 @@ Widget titleRow(BuildContext context, TextEditingController search) {
                                 vertical: 0.0, horizontal: 10.0),
                             border: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(32.0)),
+                                  BorderRadius.all(Radius.circular(32.0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.transparent, width: 1.0),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(32.0)),
+                                  BorderRadius.all(Radius.circular(32.0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.transparent, width: 2.0),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(32.0)),
+                                  BorderRadius.all(Radius.circular(32.0)),
                             ),
                           ),
                         ),
